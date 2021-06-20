@@ -14,6 +14,7 @@ const Register = () => {
     const [showPackages, setShowPackage] = useState(false)
     const [role, setRole] = useState(null)
     const [packages, setPackages] = useState(null)
+    const [tempData, setTempData] = useState({})
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
@@ -25,10 +26,12 @@ const Register = () => {
             
             if(role === 'employee' && packages !== null){
                 console.log(newUserInfo)
-                handleRegister(data.email,data.password)
+                setTempData(newUserInfo)
+                handleRegister(data.email,data.password,data.name)
             }else if(role === 'jobsSeeker'){
                 console.log(newUserInfo);
-                handleRegister(data.email,data.password)
+                setTempData(newUserInfo);
+                handleRegister(data.email,data.password,data.name)
             }else{
                 alert('Please select a package')
             }
@@ -62,13 +65,25 @@ const Register = () => {
         console.log(email, password);
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            var user = userCredential.user;
+            const user = userCredential.user;
             console.log(user);
+            userName(tempData.name)
           })
           .catch((error) => {
             var errorMessage = error.message;
             console.log(errorMessage);
           });
+
+        const userName = (name) => {
+            const user = firebase.auth().currentUser;
+            const {displayName} = user
+            console.log(displayName);
+
+            user.updateProfile({
+                displayName:name,
+            })
+            .then(result => console.log(result))
+        }
     }
 
     return (
@@ -101,7 +116,7 @@ const Register = () => {
 
                     {
                         showPackages &&
-                        <select className="form-control mb-2" onChange={handlePackageChange} name='package' >
+                        <select className="form-control mb-3" onChange={handlePackageChange} name='package' >
                             <option value="null"> ---Select your package--- </option>
                             <option value="package1">package1</option>
                             <option value="package2">package2</option>
