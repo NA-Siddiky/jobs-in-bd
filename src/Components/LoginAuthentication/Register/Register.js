@@ -11,79 +11,101 @@ if (!firebase.apps.length) {
 }
 
 const Register = () => {
+
     const [showPackages, setShowPackage] = useState(false)
     const [role, setRole] = useState(null)
-    const [packages, setPackages] = useState(null)
-    const [tempData, setTempData] = useState({})
+    const [bundle, setBundle] = useState(null)
 
     const { register, handleSubmit, formState: { errors } } = useForm();
+
     const onSubmit = data => {
         const newUserInfo = { ...data }
         newUserInfo.role = role
-        newUserInfo.package = packages
+        newUserInfo.bundle = bundle
 
-        if(role !== null ){
-            
-            if(role === 'employee' && packages !== null){
-                console.log(newUserInfo)
-                setTempData(newUserInfo)
-                handleRegister(data.email,data.password,data.name)
-            }else if(role === 'jobsSeeker'){
-                console.log(newUserInfo);
-                setTempData(newUserInfo);
-                handleRegister(data.email,data.password,data.name)
-            }else{
+        if (role !== null) {
+
+            if (role === 'employee' && bundle !== null) {
+                handleRegister(newUserInfo)
+
+            } else if (role === 'jobsSeeker') {
+                handleRegister(newUserInfo)
+
+            } else {
                 alert('Please select a package')
             }
 
-        }else{
+        } else {
             alert('please select your role')
         }
     };
 
     const handleChange = (e) => {
-        console.log(e.target.name, e.target.value);
         if (e.target.value === 'employee') {
+
             setShowPackage(true)
             setRole('employee')
+
         } else if (e.target.value === 'jobsSeeker') {
+
             setShowPackage(false)
             setRole('jobsSeeker')
-            setPackages('null')
+            setBundle('null')
         }
     }
 
     const handlePackageChange = (e) => {
-        console.log(e.target.name, e.target.value);
         if (e.target.value !== 'null') {
-            setPackages(e.target.value)
+            setBundle(e.target.value)
         }
     }
 
 
-    const handleRegister = (email,password) => {
-        console.log(email, password);
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log(user);
-            userName(tempData.name)
-          })
-          .catch((error) => {
-            var errorMessage = error.message;
-            console.log(errorMessage);
-          });
+    const handleRegister = (userInfo) => {
+
+        firebase.auth().createUserWithEmailAndPassword(userInfo.email, userInfo.password)
+            .then((userCredential) => {
+
+                userName(userInfo.name)
+                registerUser(userInfo)
+            })
+            .catch((error) => {
+                var errorMessage = error.message;
+                alert(errorMessage);
+            });
 
         const userName = (name) => {
             const user = firebase.auth().currentUser;
-            const {displayName} = user
-            console.log(displayName);
-
             user.updateProfile({
-                displayName:name,
+                displayName: name,
             })
-            .then(result => console.log(result))
+                .then(result => alert('Account created successfully'))
         }
+    }
+
+    const registerUser = (userInfo) => {
+
+        console.log(userInfo);
+
+        const { name, email, role, bundle } = userInfo;
+
+        const newUserInfo = {
+            name: name,
+            email: email,
+            role: role,
+            bundle: bundle,
+        }
+
+        fetch('http://localhost:5000/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newUserInfo)
+        }).then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
     }
 
     return (
@@ -116,11 +138,11 @@ const Register = () => {
 
                     {
                         showPackages &&
-                        <select className="form-control mb-3" onChange={handlePackageChange} name='package' >
+                        <select className="form-control mb-3" onChange={handlePackageChange} name='bundle' >
                             <option value="null"> ---Select your package--- </option>
-                            <option value="package1">package1</option>
-                            <option value="package2">package2</option>
-                            <option value="package3">package3</option>
+                            <option value="basic">basic</option>
+                            <option value="standard">standard</option>
+                            <option value="premium">premium</option>
                         </select>
                     }
 
