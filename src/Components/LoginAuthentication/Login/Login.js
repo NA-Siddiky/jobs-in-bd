@@ -18,7 +18,6 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
-        console.log(data);
 
         firebase.auth().signInWithEmailAndPassword(data.email, data.password)
             .then((userCredential) => {
@@ -33,7 +32,7 @@ const Login = () => {
     };
 
     const handleLogin = (email) => {
-        fetch(`http://localhost:5000/login?email=${email}`)
+        fetch(`http://localhost:5000/userInfo?email=${email}`)
             .then(response => response.json())
             .then(data => {
                 const newInfo = { ...info }
