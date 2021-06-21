@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { Elements } from '@stripe/react-stripe-js';
 import { useForm } from "react-hook-form";
 import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from '../firebase.config';
+import PaymentCard from '../../Payment/PaymentCard'
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -11,7 +13,7 @@ if (!firebase.apps.length) {
 }
 
 const Register = () => {
-
+    const stripePromise = loadStripe(process.env.REACT_APP_Stripe_Api_Key;
     const [showPackages, setShowPackage] = useState(false)
     const [role, setRole] = useState(null)
     const [bundle, setBundle] = useState(null)
@@ -145,6 +147,16 @@ const Register = () => {
                             <option value="premium">premium</option>
                         </select>
                     }
+
+
+                    <Elements stripe={stripePromise}>
+                        <StripeForm selectedPackage={selectedPackage} />
+                    </Elements>
+
+
+                    {/* <PaymentCard></PaymentCard> */}
+
+
 
                     <input className='btn btn-dark' type="submit" />
                 </form>
