@@ -1,26 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 
 const AddJobs = () => {
 
+    const [allCategory, setCategory] = useState([])
+
     const { register, handleSubmit, formState: { errors } } = useForm();
+
+    useEffect(() => {
+        fetch('http://localhost:5000/category')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setCategory(data)
+            })
+    }, [])
+
+
     const onSubmit = data => {
 
-        const jobData = { ...data }
-        jobData.status = 'pending'
+        if (data.category !== 'null') {
+            const jobData = { ...data }
+            jobData.status = 'pending'
 
-        console.log(jobData)
-
-        fetch('http://localhost:5000/addJob', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(jobData),
-        }).then(response => response.json())
-            .then((data) => {
-                console.log(data);
-            })
+            fetch('http://localhost:5000/addJob', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jobData),
+            }).then(response => response.json())
+                .then((data) => {
+                    console.log(data);
+                })
+        } else {
+            alert('select a category');
+        }
     };
 
     return (
@@ -29,6 +44,18 @@ const AddJobs = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input className='form-control' placeholder='Enter Job Title' {...register("jobTitle", { required: true })} />
                     {errors.jobTitle && <span>This field is required</span>}
+
+                    <br />
+
+                    <select className='form-control' {...register("category")}>
+                        <option value="null"> --- Select a category --- </option>
+                        {
+                            allCategory.map((category) => <option value={`${category.category}`}>{`${category.category}`}</option>)
+                        }
+                        {/* <option value="female">female</option>
+                        <option value="male">male</option>
+                        <option value="other">other</option> */}
+                    </select>
 
                     <br />
 

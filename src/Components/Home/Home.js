@@ -6,8 +6,8 @@ const Home = () => {
     return (
         <div>
             <h2>this is Home</h2>
-            <JobCategory></JobCategory>
-            <JobHandling></JobHandling>
+            {/* <JobCategory></JobCategory>
+            <JobHandling></JobHandling> */}
         </div>
     );
 };

@@ -12,6 +12,8 @@ import Login from './Components/LoginAuthentication/Login/Login';
 import Register from './Components/LoginAuthentication/Register/Register';
 import AddJobs from './Components/Jobs/AddJobs/AddJobs';
 import ShowJobs from './Components/Jobs/ShowJobs/ShowJobs';
+import JobHandling from './Components/Jobs/JobHandling/JobHandling';
+import JobCategory from './Components/Jobs/JobCategory/JobCategory';
 
 export const infoContext = createContext()
 
@@ -38,6 +40,12 @@ function App() {
           </Route>
           <Route path="/allJobs">
             <ShowJobs />
+          </Route>
+          <Route path="/handle">
+            <JobHandling />
+          </Route>
+          <Route path="/addCategory">
+            <JobCategory />
           </Route>
         </Switch>
       </Router>
