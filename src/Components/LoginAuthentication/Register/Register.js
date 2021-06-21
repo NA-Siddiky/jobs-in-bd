@@ -98,7 +98,7 @@ const Register = () => {
             bundle: bundle,
         }
 
-        fetch('http://localhost:5000/register', {
+        fetch('https://jobs-in-bd.herokuapp.com/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

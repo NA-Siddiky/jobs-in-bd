@@ -7,7 +7,7 @@ const JobCategory = () => {
     const onSubmit = data => handleAdd(data);
 
     const handleAdd = (data) => {
-        fetch('http://localhost:5000/addCategory', {
+        fetch('https://jobs-in-bd.herokuapp.com/addCategory', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

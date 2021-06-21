@@ -5,7 +5,7 @@ const JobHandling = () => {
     const [rejectedJobs, setRejectedJobs] = useState([])
 
     const loadData = () => {
-        fetch('http://localhost:5000/allJobs')
+        fetch('https://jobs-in-bd.herokuapp.com/allJobs')
             .then(response => response.json())
             .then(data => {
                 const pending = data.filter(perData => perData.status === 'pending');
@@ -34,7 +34,7 @@ const JobHandling = () => {
     }
 
     const update = (id, action) => {
-        fetch(`http://localhost:5000/update/${id}`, {
+        fetch(`https://jobs-in-bd.herokuapp.com/update/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

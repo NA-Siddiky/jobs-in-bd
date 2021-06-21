@@ -6,7 +6,7 @@ const ShowJobs = () => {
     const [filterByCategory, setFilterByCategory] = useState([])
 
     const loadCategory = () => {
-        fetch('http://localhost:5000/category')
+        fetch('https://jobs-in-bd.herokuapp.com/category')
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -15,7 +15,7 @@ const ShowJobs = () => {
     }
 
     const loadData = () => {
-        fetch('http://localhost:5000/allJobs')
+        fetch('https://jobs-in-bd.herokuapp.com/allJobs')
             .then(response => response.json())
             .then(data => {
                 console.log(data);

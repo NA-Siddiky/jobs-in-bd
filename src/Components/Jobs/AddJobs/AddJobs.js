@@ -8,7 +8,7 @@ const AddJobs = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     useEffect(() => {
-        fetch('http://localhost:5000/category')
+        fetch('https://jobs-in-bd.herokuapp.com/category')
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -23,7 +23,7 @@ const AddJobs = () => {
             const jobData = { ...data }
             jobData.status = 'pending'
 
-            fetch('http://localhost:5000/addJob', {
+            fetch('https://jobs-in-bd.herokuapp.com/addJob', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
