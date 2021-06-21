@@ -14,6 +14,7 @@ import AddJobs from './Components/Jobs/AddJobs/AddJobs';
 import ShowJobs from './Components/Jobs/ShowJobs/ShowJobs';
 import JobHandling from './Components/Jobs/JobHandling/JobHandling';
 import JobCategory from './Components/Jobs/JobCategory/JobCategory';
+import PrivateRoutes from './Components/privateRutes';
 
 export const infoContext = createContext()
 
@@ -35,18 +36,23 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/addJob">
+         
+          <PrivateRoutes  path="/addJob">
             <AddJobs />
-          </Route>
-          <Route path="/allJobs">
+          </PrivateRoutes>
+
+          <PrivateRoutes  path="/allJobs">
             <ShowJobs />
-          </Route>
-          <Route path="/handle">
+          </PrivateRoutes>
+
+          <PrivateRoutes  path="/handle">
             <JobHandling />
-          </Route>
-          <Route path="/addCategory">
+          </PrivateRoutes>
+          
+          <PrivateRoutes  path="/addCategory">
             <JobCategory />
-          </Route>
+          </PrivateRoutes>
+          
         </Switch>
       </Router>
     </infoContext.Provider>

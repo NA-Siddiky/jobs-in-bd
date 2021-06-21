@@ -5,7 +5,7 @@ const JobHandling = () => {
     const [rejectedJobs, setRejectedJobs] = useState([])
 
     const loadData = () => {
-        fetch('https://jobs-in-bd.herokuapp.com/allJobs')
+        fetch('https://sleepy-wildwood-64591.herokuapp.com/allJobs')
             .then(response => response.json())
             .then(data => {
                 const pending = data.filter(perData => perData.status === 'pending');
@@ -34,7 +34,7 @@ const JobHandling = () => {
     }
 
     const update = (id, action) => {
-        fetch(`https://jobs-in-bd.herokuapp.com/update/${id}`, {
+        fetch(`https://sleepy-wildwood-64591.herokuapp.com/update/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

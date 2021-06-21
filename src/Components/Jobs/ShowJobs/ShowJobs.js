@@ -6,7 +6,7 @@ const ShowJobs = () => {
     const [filterByCategory, setFilterByCategory] = useState([])
 
     const loadCategory = () => {
-        fetch('https://jobs-in-bd.herokuapp.com/category')
+        fetch('https://sleepy-wildwood-64591.herokuapp.com/category')
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -15,7 +15,7 @@ const ShowJobs = () => {
     }
 
     const loadData = () => {
-        fetch('https://jobs-in-bd.herokuapp.com/allJobs')
+        fetch('https://sleepy-wildwood-64591.herokuapp.com/allJobs')
             .then(response => response.json())
             .then(data => {
                 console.log(data);

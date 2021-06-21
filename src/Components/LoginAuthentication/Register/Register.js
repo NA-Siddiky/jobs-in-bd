@@ -5,7 +5,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from '../firebase.config';
 import PaymentCard from '../../Payment/PaymentCard'
-
+import { loadStripe } from '@stripe/stripe-js';
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 } else {
@@ -13,7 +13,7 @@ if (!firebase.apps.length) {
 }
 
 const Register = () => {
-    const stripePromise = loadStripe(process.env.REACT_APP_Stripe_Api_Key;
+    const stripePromise = loadStripe(process.env.REACT_APP_Stripe_Api_Key);
     const [showPackages, setShowPackage] = useState(false)
     const [role, setRole] = useState(null)
     const [bundle, setBundle] = useState(null)
@@ -98,7 +98,7 @@ const Register = () => {
             bundle: bundle,
         }
 
-        fetch('https://jobs-in-bd.herokuapp.com/register', {
+        fetch('https://sleepy-wildwood-64591.herokuapp.com/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -140,19 +140,21 @@ const Register = () => {
 
                     {
                         showPackages &&
+                        <>
                         <select className="form-control mb-3" onChange={handlePackageChange} name='bundle' >
                             <option value="null"> ---Select your package--- </option>
                             <option value="basic">basic</option>
                             <option value="standard">standard</option>
                             <option value="premium">premium</option>
                         </select>
+                        <Elements stripe={stripePromise}>
+                            <PaymentCard />
+                        </Elements>
+                        </>
                     }
 
 
-                    <Elements stripe={stripePromise}>
-                        <StripeForm selectedPackage={selectedPackage} />
-                    </Elements>
-
+                    
 
                     {/* <PaymentCard></PaymentCard> */}
 
