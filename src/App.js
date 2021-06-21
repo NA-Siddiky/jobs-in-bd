@@ -11,8 +11,8 @@ import Homepage from '../src/Components/Pages/Homepage';
 import Navbar from '../src/Components/Header/Navbar/Navbar';
 import Login from './Components/LoginAuthentication/Login/Login';
 import Register from './Components/LoginAuthentication/Register/Register';
-import AddJobs from './Components/Home/AddJobs/AddJobs';
-import ShowJobs from './Components/Home/ShowJobs/ShowJobs';
+import AddJobs from './Components/Jobs/ShowJobs/ShowJobs';
+import ShowJobs from './Components/Jobs/ShowJobs/ShowJobs';
 
 export const infoContext = createContext()
 
