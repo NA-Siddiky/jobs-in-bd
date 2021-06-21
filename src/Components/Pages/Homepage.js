@@ -4,7 +4,7 @@ import Home from '../Home/Home'
 const Homepage = () => {
     return (
         <div>
-            <h3>this is home page</h3>
+            <h3>its your destiny</h3>
             <Home></Home>
         </div>
     );

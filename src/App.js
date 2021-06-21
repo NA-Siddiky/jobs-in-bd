@@ -41,9 +41,9 @@ function App() {
             <AddJobs />
           </PrivateRoutes>
 
-          <PrivateRoutes  path="/allJobs">
+          <Route  path="/allJobs">
             <ShowJobs />
-          </PrivateRoutes>
+          </Route>
 
           <PrivateRoutes  path="/handle">
             <JobHandling />

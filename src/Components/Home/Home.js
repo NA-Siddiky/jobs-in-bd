@@ -5,7 +5,7 @@ import JobHandling from '../Jobs/JobHandling/JobHandling';
 const Home = () => {
     return (
         <div>
-            <h2>this is Home</h2>
+            <h2>Welcome to job world Home</h2>
             {/* <JobCategory></JobCategory>
             <JobHandling></JobHandling> */}
         </div>
